@@ -48,6 +48,12 @@ class Dots(object):
     def __repr__(self):
         return 'Dots({!r})'.format(self._data)
 
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self._data == other._data
+        else:
+            return NotImplemented
+
 
 def _compile_expr(expr):
     """
