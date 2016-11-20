@@ -151,12 +151,13 @@ def spec_to_records(spec, seq_of_json):
 
     Parameters
     ----------
-    spec : dict of dict
-        Dictionary in which keys are paired with dictionaries specifying
-        how to access an item from the JSON objects in ``seq_of_json``.
-        The dictionaries must have at least an ``expr`` key and may
-        optionally have ``use_default`` and ``default`` keys. See the
-        ``access`` documentation for descriptions of the values.
+    spec : dict
+        Dictionary in which keys are paired with dictionaries or strings
+        specifying how to access an item from the JSON objects in
+        ``seq_of_json``. Dictionaries must have at least an ``expr``
+        key and may optionally have ``use_default`` and ``default`` keys.
+        See the ``access`` documentation for descriptions of the values.
+        If the dict values are strings they are used as the ``expr``.
     seq_of_json : iterable
         Any iterable of JSON objects.
 
@@ -169,7 +170,9 @@ def spec_to_records(spec, seq_of_json):
 
     """
     access_dict = {
-        key: access_factory(**spec_item) for key, spec_item in spec.items()}
+        key: access_factory(**spec_item)
+        if isinstance(spec_item, dict) else access_factory(spec_item)
+        for key, spec_item in spec.items()}
 
     for json_item in seq_of_json:
         yield {

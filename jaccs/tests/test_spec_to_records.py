@@ -64,8 +64,8 @@ def usgs_json():
 
 def test_spec_to_records(usgs_json):
     spec = {
-        'place': {'expr': '_.features[0].properties.place'},
-        'mag': {'expr': '_.features[0].properties.mag'},
+        'place': '_.features[0].properties.place',
+        'mag': '_.features[0].properties.mag',
         'longitude': {'expr': '_.features[0].geometry.coordinates[0]'},
         'latitude': {'expr': '_.features[0].geometry.coordinates[1]'},
         'nope': {'expr': '_.nope', 'use_default': True, 'default': 'default'}
