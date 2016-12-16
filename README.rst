@@ -1,6 +1,9 @@
 Jaccs - JSON Access Strings
 ===========================
 
+.. image:: https://travis-ci.org/jiffyclub/jaccs.svg?branch=master
+   :target: https://travis-ci.org/jiffyclub/jaccs
+
 Jaccs allows you to pull data from JSON objects using string Python
 expressions. For example::
 
