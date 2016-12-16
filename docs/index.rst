@@ -27,6 +27,8 @@ For the latest you can install from Github master with::
 
     pip install https://github.com/jiffyclub/jaccs/archive/master.zip
 
+Source code is on Github at https://github.com/jiffyclub/jaccs.
+
 Access String Syntax
 --------------------
 
