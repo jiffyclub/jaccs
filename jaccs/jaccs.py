@@ -9,7 +9,25 @@ class Dots(object):
     """
     Wraps dictionaries or lists to implement attribute access for dict keys.
 
-    Use the _ attribute to access the wrapped Python object.
+    Scalar-like objects (strings, numbers, etc) are returned as is,
+    but nested sequences/mappings are wrapped again to support further
+    attribute-style access.
+    Use the _ attribute to access the raw wrapped Python object.
+
+    Parameters
+    ----------
+    data : mapping or sequence
+        Data object to wrap for access.
+
+    Example
+    -------
+    >>> d = Dots({'a': {'b': [1, 2, 3]}})
+    >>> d.a.b[1]
+    2
+    >>> d.a
+    Dots({'b': [1, 2, 3]})
+    >>> d.a._
+    {'b': [1, 2, 3]}
 
     """
     def __init__(self, data):
@@ -91,6 +109,15 @@ def access_factory(expr, use_default=False, default=None):
         Takes a single argument of a JSON object and returns data from
         the object according to the arguments here.
 
+    Examples
+    --------
+    >>> access_ = access_factory('_.a.b[2]')
+    >>> access_({'a': {'b': [1, 2, 3]}})
+    3
+    >>> access_ = access_factory('_.a.c', use_default=True, default=2)
+    >>> access_({'a': {'b': 1}})
+    2
+
     """
     compiled_expr = _compile_expr(expr)
 
@@ -134,10 +161,12 @@ def access(dict_or_list, expr, use_default=False, default=None):
         Default value to return when use_default is True and a KeyError
         or IndexError occurs while evaluating ``expr``.
 
-    Example
-    -------
+    Examples
+    --------
     >>> access({'a': {'b': [1, 2, 3]}}, '_.a.b[2]')
     3
+    >>> access({'a': {'b': 1}}, '_.a.c', use_default=True, default=2)
+    2
 
     """
     _access = access_factory(expr, use_default=use_default, default=default)
@@ -167,6 +196,13 @@ def spec_to_records(spec, seq_of_json):
         One dictionary for each value in ``seq_of_json``. Each will have
         the same keys as ``spec`` and values pulled from the JSON
         objects according to the expressions in ``spec``.
+
+    Examples
+    --------
+    >>> spec = {'b': '_.a.b', 'c': {'expr': '_.a.c', 'use_default': True, 'default': 4}}
+    >>> json = [{'a': {'b': 1, 'c': 2}}, {'a': {'b': 3}}]
+    >>> list(spec_to_records(spec, json))
+    [{'c': 2, 'b': 1}, {'c': 4, 'b': 3}]
 
     """
     access_dict = {
