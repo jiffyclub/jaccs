@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Jaccs - JSON Access Strings &mdash; Jaccs 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Jaccs 1.0.0 documentation" href="#"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Jaccs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <!-- Local TOC -->
+                <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Jaccs - JSON Access Strings</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#access-string-syntax">Access String Syntax</a></li>
+<li><a class="reference internal" href="#api">API</a><ul>
+<li><a class="reference internal" href="#access">access</a></li>
+<li><a class="reference internal" href="#access-factory">access_factory</a></li>
+<li><a class="reference internal" href="#spec-to-records">spec_to_records</a></li>
+<li><a class="reference internal" href="#dots">Dots</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#index">Index</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Jaccs</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Jaccs - JSON Access Strings</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jaccs-json-access-strings">
+<h1>Jaccs - JSON Access Strings<a class="headerlink" href="#jaccs-json-access-strings" title="Permalink to this headline">¶</a></h1>
+<p>Jaccs allows you to pull data from JSON objects using string Python
+expressions. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jaccs</span> <span class="k">import</span> <span class="n">access</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">access</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}]},</span> <span class="s1">&#39;_.a.b[1].c&#39;</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>This is expected to be most useful for combining specifications stored in
+external text files (say JSON or YAML) with data objects in Python.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The best way to install Jaccs is via PyPI:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">jaccs</span>
+</pre></div>
+</div>
+<p>For the latest you can install from Github master with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jiffyclub</span><span class="o">/</span><span class="n">jaccs</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">master</span><span class="o">.</span><span class="n">zip</span>
+</pre></div>
+</div>
+<p>Source code is on Github at <a class="reference external" href="https://github.com/jiffyclub/jaccs">https://github.com/jiffyclub/jaccs</a>.</p>
+</div>
+<div class="section" id="access-string-syntax">
+<h2>Access String Syntax<a class="headerlink" href="#access-string-syntax" title="Permalink to this headline">¶</a></h2>
+<p>Access strings must be valid Python expressions, and the result returned
+by <a class="reference internal" href="#jaccs.access" title="jaccs.access"><code class="xref py py-func docutils literal"><span class="pre">access()</span></code></a> will be the result of calling
+<a class="reference external" href="https://docs.python.org/3/library/functions.html#eval">eval</a>
+on the expression. The JSON object is represented by an underscore in
+the expression. Jaccs wrapps the JSON object so that dictionary keys can
+be accessed via attributes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">access</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;z&#39;</span><span class="p">}},</span> <span class="s1">&#39;_.a.b&#39;</span><span class="p">)</span>
+<span class="go">&#39;z&#39;</span>
+</pre></div>
+</div>
+<p>List items can be accessed via indexing:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">access</span><span class="p">([</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="s1">&#39;_[0]&#39;</span><span class="p">)</span>
+<span class="go">&#39;x&#39;</span>
+</pre></div>
+</div>
+<p>Not all dictionary keys are valid attribute names so dictionary values
+can also be accessed with the usual brackets:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">access</span><span class="p">({</span><span class="s1">&#39;a b c&#39;</span><span class="p">:</span> <span class="s1">&#39;x y z&#39;</span><span class="p">},</span> <span class="s1">&#39;_[&quot;a b c&quot;]&#39;</span><span class="p">)</span>
+<span class="go">&#39;x y z&#39;</span>
+</pre></div>
+</div>
+<p>Expressions need not be limited to data access, they can access Python&#8217;s
+builtin functions and build their own arbitrarily complex objects.
+If for some reason you need access to the wrapped JSON object use the
+<code class="docutils literal"><span class="pre">._</span></code> attribute:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">access</span><span class="p">({</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]},</span> <span class="s1">&#39;{&quot;data&quot;: _.data._, &quot;sum&quot;: sum(_.data._)}&#39;</span><span class="p">)</span>
+<span class="go">{&#39;data&#39;: [1, 2, 3], &#39;sum&#39;: 6}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="access">
+<h3>access<a class="headerlink" href="#access" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">access</span></code> is the simplest way to combine a JSON object and
+a string specification for data access.
+The <code class="docutils literal"><span class="pre">use_default</span></code> and <code class="docutils literal"><span class="pre">default</span></code> parameters can be used to return a default
+value when a key or array index is not found within the JSON object.
+Unless <code class="docutils literal"><span class="pre">use_default</span></code> is specified <code class="docutils literal"><span class="pre">KeyError</span></code> or <code class="docutils literal"><span class="pre">IndexError</span></code> is raised
+for missing keys/indices.</p>
+<dl class="function">
+<dt id="jaccs.access">
+<code class="descclassname">jaccs.</code><code class="descname">access</code><span class="sig-paren">(</span><em>dict_or_list</em>, <em>expr</em>, <em>use_default=False</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#jaccs.access" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve whatever is at some path into a JSON object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dict_or_list</strong> (<em>sequence</em><em> or </em><em>mapping</em>) &#8211; The object from which to retrieve data.</li>
+<li><strong>expr</strong> (<em>str</em>) &#8211; Access string describing path into <code class="docutils literal"><span class="pre">dict_or_list</span></code>.
+Can be any valid Python expression, use <code class="docutils literal"><span class="pre">_</span></code> to represent
+<code class="docutils literal"><span class="pre">dict_or_list</span></code>.</li>
+<li><strong>use_default</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; If True, the value of <code class="docutils literal"><span class="pre">default</span></code> will be returned in instances
+when a KeyError or IndexError occurs while evaluating <code class="docutils literal"><span class="pre">expr</span></code>.</li>
+<li><strong>default</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; Default value to return when use_default is True and a KeyError
+or IndexError occurs while evaluating <code class="docutils literal"><span class="pre">expr</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">access</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}},</span> <span class="s1">&#39;_.a.b[2]&#39;</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">access</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}},</span> <span class="s1">&#39;_.a.c&#39;</span><span class="p">,</span> <span class="n">use_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="access-factory">
+<h3>access_factory<a class="headerlink" href="#access-factory" title="Permalink to this headline">¶</a></h3>
+<p>If you intend to use the same access string repeatedly on a sequence of
+JSON objects it can be more performant to parse and compile the expression
+ahead of time.
+The <code class="docutils literal"><span class="pre">access_factory</span></code> function does that and returns a new function ready
+to process JSON objects according to the configuration passed
+to <code class="docutils literal"><span class="pre">access_factory</span></code>.</p>
+<dl class="function">
+<dt id="jaccs.access_factory">
+<code class="descclassname">jaccs.</code><code class="descname">access_factory</code><span class="sig-paren">(</span><em>expr</em>, <em>use_default=False</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#jaccs.access_factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a function that will take a JSON object and retrieve
+data according to the arguments here.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> (<em>str</em>) &#8211; Access string describing path into a JSON object.
+Can be any valid Python expression, use <code class="docutils literal"><span class="pre">_</span></code> to represent
+the JSON object.</li>
+<li><strong>use_default</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; If True, the value of <code class="docutils literal"><span class="pre">default</span></code> will be returned in instances
+when a KeyError or IndexError occurs while evaluating <code class="docutils literal"><span class="pre">expr</span></code>.</li>
+<li><strong>default</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; Default value to return when use_default is True and a KeyError
+or IndexError occurs while evaluating <code class="docutils literal"><span class="pre">expr</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Takes a single argument of a JSON object and returns data from
+the object according to the arguments here.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">function</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">access_</span> <span class="o">=</span> <span class="n">access_factory</span><span class="p">(</span><span class="s1">&#39;_.a.b[2]&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">access_</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}})</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">access_</span> <span class="o">=</span> <span class="n">access_factory</span><span class="p">(</span><span class="s1">&#39;_.a.c&#39;</span><span class="p">,</span> <span class="n">use_default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">access_</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}})</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="spec-to-records">
+<h3>spec_to_records<a class="headerlink" href="#spec-to-records" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">spec_to_records</span></code> allows you to stream a sequence of JSON objects against
+a dictionary of access strings (a spec), yielding dictionaries with the same keys
+as the spec holding values pulled from the JSON objects.</p>
+<dl class="function">
+<dt id="jaccs.spec_to_records">
+<code class="descclassname">jaccs.</code><code class="descname">spec_to_records</code><span class="sig-paren">(</span><em>spec</em>, <em>seq_of_json</em><span class="sig-paren">)</span><a class="headerlink" href="#jaccs.spec_to_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine a specification of JSON access strings with a sequence of
+JSON objects to create a sequence of records.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>spec</strong> (<em>dict</em>) &#8211; Dictionary in which keys are paired with dictionaries or strings
+specifying how to access an item from the JSON objects in
+<code class="docutils literal"><span class="pre">seq_of_json</span></code>. Dictionaries must have at least an <code class="docutils literal"><span class="pre">expr</span></code>
+key and may optionally have <code class="docutils literal"><span class="pre">use_default</span></code> and <code class="docutils literal"><span class="pre">default</span></code> keys.
+See the <code class="docutils literal"><span class="pre">access</span></code> documentation for descriptions of the values.
+If the dict values are strings they are used as the <code class="docutils literal"><span class="pre">expr</span></code>.</li>
+<li><strong>seq_of_json</strong> (<em>iterable</em>) &#8211; Any iterable of JSON objects.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last"><em>dict</em> &#8211; One dictionary for each value in <code class="docutils literal"><span class="pre">seq_of_json</span></code>. Each will have
+the same keys as <code class="docutils literal"><span class="pre">spec</span></code> and values pulled from the JSON
+objects according to the expressions in <code class="docutils literal"><span class="pre">spec</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;_.a.b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;expr&#39;</span><span class="p">:</span> <span class="s1">&#39;_.a.c&#39;</span><span class="p">,</span> <span class="s1">&#39;use_default&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">json</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}},</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">spec_to_records</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">json</span><span class="p">))</span>
+<span class="go">[{&#39;c&#39;: 2, &#39;b&#39;: 1}, {&#39;c&#39;: 4, &#39;b&#39;: 3}]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="dots">
+<h3>Dots<a class="headerlink" href="#dots" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">Dots</span></code> is a class used internally by Jaccs to translate attribute lookups
+into normal key-based access on dictionaries.
+It&#8217;s the workhorse used when evaluating JSON access strings.
+It&#8217;s exposed here in case folks have a case for using it to write less verbose
+dictionary access code and don&#8217;t want to use any of the functions documented
+above.</p>
+<dl class="class">
+<dt id="jaccs.Dots">
+<em class="property">class </em><code class="descclassname">jaccs.</code><code class="descname">Dots</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#jaccs.Dots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wraps dictionaries or lists to implement attribute access for dict keys.</p>
+<p>Scalar-like objects (strings, numbers, etc) are returned as is,
+but nested sequences/mappings are wrapped again to support further
+attribute-style access.
+Use the _ attribute to access the raw wrapped Python object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>mapping</em><em> or </em><em>sequence</em>) &#8211; Data object to wrap for access.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">Dots</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">a</span>
+<span class="go">Dots({&#39;b&#39;: [1, 2, 3]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">_</span>
+<span class="go">{&#39;b&#39;: [1, 2, 3]}</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="jaccs.Dots._">
+<code class="descname">_</code><a class="headerlink" href="#jaccs.Dots._" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access the wrapped Python object.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+<div class="section" id="index">
+<h1>Index<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Matt Davis.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
