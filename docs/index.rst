@@ -16,6 +16,17 @@ expressions. For example::
 This is expected to be most useful for combining specifications stored in
 external text files (say JSON or YAML) with data objects in Python.
 
+Installation
+------------
+
+The best way to install Jaccs is via PyPI::
+
+    pip install jaccs
+
+For the latest you can install from Github master with::
+
+    pip install https://github.com/jiffyclub/jaccs/archive/master.zip
+
 Access String Syntax
 --------------------
 
