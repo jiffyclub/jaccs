@@ -13,3 +13,5 @@ expressions. For example::
 
 This is expected to be most useful for combining specifications stored in
 external text files (say JSON or YAML) with data objects in Python.
+
+Documentation is at https://jiffyclub.github.io/jaccs/.
